@@ -66,7 +66,7 @@ public class CategoryEventBus {
         return categoriesBySubscriber.containsKey(subscriber);
     }
 
-    public void register(Object subscriber){
+    public void register(@NonNull Object subscriber){
         if(eventBus.isRegistered(subscriber) || isCategoryRegistered(subscriber)){
             return;
         }
@@ -79,7 +79,7 @@ public class CategoryEventBus {
         }
     }
 
-    public void unregister(Object subscriber){
+    public void unregister(@NonNull Object subscriber){
         if(eventBus.isRegistered(subscriber)){
             eventBus.unregister(subscriber);
         }
@@ -94,25 +94,25 @@ public class CategoryEventBus {
         }
     }
 
-    public void post(Object event){
+    public void post(@NonNull Object event){
         if(event != null){
             eventBus.post(event);
         }
     }
 
-    public void postSticky(Object event){
+    public void postSticky(@NonNull Object event){
         if(event != null){
             eventBus.postSticky(event);
         }
     }
 
-    public void post(String category, Object event){
+    public void post(@NonNull String category, Object event){
         if(category != null && !category.isEmpty()){
             categoryPost(new CategoryEvent(category, event));
         }
     }
 
-    public void postSticky(String category, Object event){
+    public void postSticky(@NonNull String category, Object event){
         if(category != null && !category.isEmpty()){
             //todo
         }
@@ -140,7 +140,7 @@ public class CategoryEventBus {
                     subscriptionsByEventCategory.put(category, categorySubscriptions);
                 }else{
                     if(categorySubscriptions.contains(categorySubscription)){
-                        throw new JEventBusException("Subscriber " + subscriber.getClass() + " already registered to event " + category);
+                        throw new CategoryEventBusException("Subscriber " + subscriber.getClass() + " already registered to event " + category);
                     }
                 }
                 int size = categorySubscriptions.size();
@@ -206,7 +206,7 @@ public class CategoryEventBus {
                 postingState.isMainThread = isMainThread;
                 postingState.isPosting = true;
                 if (postingState.canceled) {
-                    throw new JEventBusException("Internal error. Abort state was not reset");
+                    throw new CategoryEventBusException("Internal error. Abort state was not reset");
                 }
                 try {
                     while (!eventQueue.isEmpty()) {

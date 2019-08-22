@@ -3,8 +3,6 @@ package com.waldener.eventbus;
 
 import androidx.annotation.NonNull;
 
-import java.util.Map;
-
 /**
  * Created by Waldener on 2018/10/12.
  */
@@ -47,7 +45,7 @@ public class EventProxy {
      * @param category
      * @param event
      */
-    public static void post(@NonNull String category, Map<String, Object> event){
+    public static void post(@NonNull String category, Object event){
         CategoryEventBus.getDefault().post(category, event);
     }
 
@@ -56,7 +54,7 @@ public class EventProxy {
      * @param category
      * @param event
      */
-    public static void postSticky(@NonNull String category, Map<String, Object> event){
+    public static void postSticky(@NonNull String category, Object event){
         CategoryEventBus.getDefault().postSticky(category, event);
     }
 
